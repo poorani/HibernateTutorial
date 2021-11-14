@@ -28,12 +28,12 @@ public class HibernateDemo {
             session.beginTransaction();
             //Read from the database
 
-            List<Student> theStudents = session.createQuery("from Student").getResultList();
+            Student theStudent = session.get(Student.class, 2);
 
-            displayQueryResult(theStudents);
+            theStudent.setLastName("Muthusamy");
 
-            theStudents = session.createQuery("from Student s where s.lastName = 'porali'").getResultList();
-            displayQueryResult(theStudents);
+
+            session.createQuery("update Student s set email='pooranimuthusamy@gmail.com' where s.firstName='poorani' ").executeUpdate();
 
 
             session.getTransaction().commit();

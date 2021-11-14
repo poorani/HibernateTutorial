@@ -23,17 +23,14 @@ public class HibernateDemo {
             //Querying from DB
 
             //create session
-            session = factory.getCurrentSession();
+            //session = factory.getCurrentSession();
             //start the transaction
             session.beginTransaction();
             //Read from the database
 
             Student theStudent = session.get(Student.class, 2);
 
-            theStudent.setLastName("Muthusamy");
-
-
-            session.createQuery("update Student s set email='pooranimuthusamy@gmail.com' where s.firstName='poorani' ").executeUpdate();
+            session.delete(theStudent);
 
 
             session.getTransaction().commit();

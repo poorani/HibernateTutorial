@@ -4,6 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 public class HibernateDemo {
     public static void main(String[] args) {
 
@@ -16,21 +18,9 @@ public class HibernateDemo {
 
         try{
 
-//            Student theStudent = new Student("poorani","Porali","pooraniporali@gmail.com");
-//
-//            System.out.println(theStudent);
-//
-//            //start a transaction
-//            session.beginTransaction();
-//
-//            //save the student object
-//            session.save(theStudent);
-//
-//            //commit the transaction
-//            session.getTransaction().commit();
 
 
-            //Reading from DB
+            //Querying from DB
 
             //create session
             session = factory.getCurrentSession();
@@ -38,14 +28,25 @@ public class HibernateDemo {
             session.beginTransaction();
             //Read from the database
 
-            Student myStudent = session.get(Student.class,2);
-            //commit the transation
+            List<Student> theStudents = session.createQuery("from Student").getResultList();
+
+            displayQueryResult(theStudents);
+
+            theStudents = session.createQuery("from Student s where s.lastName = 'porali'").getResultList();
+            displayQueryResult(theStudents);
+
+
             session.getTransaction().commit();
 
-            System.out.println(myStudent);
+
         }
         finally{
             factory.close();
         }
+    }
+
+    private static void displayQueryResult(List<Student> theStudents) {
+        for(Student tmpStudent : theStudents)
+            System.out.println(tmpStudent);
     }
 }

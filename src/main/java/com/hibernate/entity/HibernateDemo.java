@@ -16,20 +16,33 @@ public class HibernateDemo {
 
         try{
 
-            Student theStudent = new Student("Andril","Porali","andril405.bsd.org");
+//            Student theStudent = new Student("poorani","Porali","pooraniporali@gmail.com");
+//
+//            System.out.println(theStudent);
+//
+//            //start a transaction
+//            session.beginTransaction();
+//
+//            //save the student object
+//            session.save(theStudent);
+//
+//            //commit the transaction
+//            session.getTransaction().commit();
 
-            System.out.println(theStudent);
 
-            //start a transaction
+            //Reading from DB
+
+            //create session
+            session = factory.getCurrentSession();
+            //start the transaction
             session.beginTransaction();
+            //Read from the database
 
-            //save the student object
-            session.save(theStudent);
-
-            //commit the transaction
+            Student myStudent = session.get(Student.class,2);
+            //commit the transation
             session.getTransaction().commit();
 
-
+            System.out.println(myStudent);
         }
         finally{
             factory.close();
